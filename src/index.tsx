@@ -1,7 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+
 import "./index.css";
-import App from "./App";
+
+import Home from "./pages/home";
+import PostList from "./pages/posts";
+import PostDetail from "./pages/posts/detail";
+import PostNew from "./pages/posts/new";
+import PostEdit from "./pages/posts/edit";
+import Profile from "./pages/profile";
+import LogIn from "./pages/login";
+import SignUp from "./pages/signup";
+
 import {
   createBrowserRouter,
   RouterProvider,
@@ -11,27 +21,35 @@ import {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Main Home</div>,
+    element: <Home />,
   },
   {
     path: "/posts",
-    element: <div>Post List</div>,
+    element: <PostList />,
   },
   {
     path: "/posts/:id",
-    element: <div>Post Contents</div>,
+    element: <PostDetail />,
   },
   {
     path: "/posts/new",
-    element: <div>Post New</div>,
+    element: <PostNew />,
   },
   {
     path: "/posts/edit/:id",
-    element: <div>Post Edit</div>,
+    element: <PostEdit />,
   },
   {
     path: "/profile",
-    element: <div>Profile</div>,
+    element: <Profile />,
+  },
+  {
+    path: "/login",
+    element: <LogIn />,
+  },
+  {
+    path: "/signup",
+    element: <SignUp />,
   },
   {
     path: "*",
