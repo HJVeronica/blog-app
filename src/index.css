@@ -223,3 +223,52 @@ footer a:focus {
 .post__detail .post__box {
   border: none;
 }
+
+/* profile */
+.profile__box {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+
+  font-size: 18px;
+  text-align: left;
+  line-height: 1.6;
+
+  padding: 20px 200px;
+}
+
+.flex__box-lg {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.profile__image {
+  width: 72px;
+  height: 72px;
+
+  background-color: var(--light-gray);
+  border-radius: 50%;
+}
+
+.profile__name {
+  font-size: 16px;
+  padding-top: 4px;
+}
+
+.profile__email {
+  font-weight: var(--pretendard-medium);
+}
+
+.profile__logout {
+  color: gray;
+  text-decoration: none;
+
+  font-size: 14px;
+}
+
+.profile__logout:hover,
+.profile__logout:focus {
+  color: var(--text-basic-color);
+}

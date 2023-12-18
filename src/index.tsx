@@ -8,7 +8,7 @@ import PostList from "./pages/posts";
 import PostPage from "./components/PostPage";
 import PostNew from "./pages/posts/new";
 import PostEdit from "./pages/posts/edit";
-import Profile from "./pages/profile";
+import ProfilePage from "./components/ProfilePage";
 import LogIn from "./pages/login";
 import SignUp from "./pages/signup";
 
@@ -41,7 +41,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/profile",
-    element: <Profile />,
+    element: <ProfilePage />,
   },
   {
     path: "/login",
