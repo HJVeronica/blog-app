@@ -1,13 +1,199 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+
+:root {
+  --pretendard-thin: 100;
+  --pretendard-extralight: 200;
+  --pretendard-light: 300;
+  --pretendard-regular: 400;
+  --pretendard-medium: 500;
+  --pretendard-semibold: 600;
+  --pretendard-bold: 700;
+  --pretendard-extrabold: 800;
+  --pretendard-black: 900;
+
+  --light-gray: #f2f2f2;
+  --btn-bg: #212529;
+  --text-basic-color: #1d1b1c;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Pretendard Variable", Pretendard, -apple-system,
+    BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
+    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  color: var(--text-basic-color);
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+a {
+  color: var(--text-basic-color);
+}
+
+/* header & footer */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  border-bottom: 1px solid var(--light-gray);
+  padding: 10px 100px;
+  min-height: 40px;
+}
+
+footer {
+  background-color: var(--light-gray);
+  min-height: 40px;
+  padding: 20px 40px;
+
+  font-size: 14px;
+  text-align: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.headre__right {
+  display: flex;
+  align-items: center;
+}
+
+.header__write--btn {
+  font-size: 14px;
+  font-weight: var(--pretendard-semibold);
+  color: white;
+
+  background-color: var(--btn-bg);
+  border: 1px solid var(--btn-bg);
+  border-radius: 2em;
+
+  padding: 8px 20px;
+
+  cursor: pointer;
+}
+
+.header__write--btn:hover {
+  background-color: white;
+  color: var(--text-basic-color);
+}
+
+header a.blog__home {
+  font-size: 20px;
+  font-weight: var(--pretendard-bold);
+  text-decoration: none;
+}
+
+header a:not(.blog__home),
+footer a {
+  margin: 0 10px;
+
+  text-decoration: none;
+  color: gray;
+}
+
+header a:not(.blog__home):hover,
+header a:not(.blog__home):focus,
+footer a:hover,
+footer a:focus {
+  color: var(--text-basic-color);
+}
+
+/* post navigation */
+.post__navigation {
+  display: flex;
+  gap: 12px;
+
+  font-size: 16px;
+  color: gray;
+
+  cursor: pointer;
+  padding: 48px 200px 0 200px;
+}
+
+.post__navigation--active {
+  color: var(--text-basic-color);
+  font-weight: var(--pretendard-semibold);
+}
+
+/* post list */
+.post__list {
+  min-height: 90vh;
+
+  padding: 20px 200px;
+  margin: 0 auto;
+
+  text-align: left;
+  line-height: 1.5;
+}
+
+.post__list a {
+  text-decoration: none;
+}
+
+/* post box */
+.post__box {
+  padding-top: 24px;
+  padding-bottom: 24px;
+
+  border-top: 1px solid var(--light-gray);
+}
+
+.post__profile-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 14px;
+}
+
+.post__profile {
+  width: 40px;
+  height: 40px;
+
+  background-color: var(--light-gray);
+  border-radius: 50%;
+}
+
+.post__created-at,
+.post_author-name {
+  color: gray;
+}
+
+.post__title {
+  font-size: 20px;
+  font-weight: var(--pretendard-semibold);
+
+  margin: 20px 0 14px;
+}
+
+.post__text {
+  color: dimgray;
+  font-size: 16px;
+}
+
+.post__utils-box {
+  display: flex;
+  gap: 8px;
+  flex-direction: row-reverse;
+
+  font-size: 14px;
+  color: gray;
+
+  margin-top: 10px;
+}
+
+.post__delete:hover,
+.post__delete:focus,
+.post__edit:hover,
+.post__edit:focus {
+  color: var(--text-basic-color);
 }
