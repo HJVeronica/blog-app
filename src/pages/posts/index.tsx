@@ -1,7 +1,15 @@
-import React from "react";
+import Footer from "../../components/Footer";
+import Header from "../../components/Header";
+import PostList from "../../components/PostList";
 
-const PostListPage = () => {
-  return <div>PostList</div>;
+const PostFeed = () => {
+  return (
+    <>
+      <Header />
+      <PostList />
+      <Footer />
+    </>
+  );
 };
 
-export default PostListPage;
+export default PostFeed;
