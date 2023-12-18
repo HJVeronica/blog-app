@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
+import firebase from "firebaseApp";
+
 import "index.css";
 
 import Home from "pages/home";
