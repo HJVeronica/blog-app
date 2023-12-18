@@ -125,7 +125,8 @@ footer a:focus {
 }
 
 /* post list */
-.post__list {
+.post__list,
+.post__detail {
   min-height: 90vh;
 
   padding: 20px 200px;
@@ -196,4 +197,29 @@ footer a:focus {
 .post__edit:hover,
 .post__edit:focus {
   color: var(--text-basic-color);
+}
+
+/* post detail */
+.post__detail .post__title {
+  font-size: 36px;
+}
+
+.post__detail .post__utils-box {
+  padding: 10px 0;
+  border-top: 1px solid var(--light-gray);
+  border-bottom: 1px solid var(--light-gray);
+
+  flex-direction: row;
+}
+
+.post__detail .post__profile-box {
+  padding: 10px 0;
+}
+
+.post__detail .post__content {
+  padding: 20px 0;
+}
+
+.post__detail .post__box {
+  border: none;
 }
