@@ -1,16 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-import "./index.css";
+import "index.css";
 
-import Home from "./pages/home";
-import PostList from "./pages/posts";
-import PostPage from "./components/PostPage";
-import PostNew from "./pages/posts/new";
-import PostEdit from "./pages/posts/edit";
-import ProfilePage from "./components/ProfilePage";
-import LogIn from "./pages/login";
-import SignUp from "./pages/signup";
+import Home from "pages/home";
+import PostList from "pages/posts";
+import PostPage from "components/PostPage";
+import PostNew from "pages/posts/new";
+import PostEdit from "pages/posts/edit";
+import ProfilePage from "components/ProfilePage";
+import LogIn from "pages/login";
+import SignUp from "pages/signup";
 
 import {
   createBrowserRouter,
