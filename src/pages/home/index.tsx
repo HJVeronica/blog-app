@@ -1,22 +1,12 @@
 import { Link } from "react-router-dom";
 
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+
 const Home = () => {
   return (
     <div>
-      <header>
-        <div>
-          <Link to="/" className="blog__home">
-            블로그 홈
-          </Link>
-        </div>
-        <div className="headre__right">
-          <Link to="/posts">피드</Link>
-          <Link to="/profile">프로필</Link>
-          <Link to="/posts/new" className="header__write">
-            <button className="header__write--btn">글쓰기</button>
-          </Link>
-        </div>
-      </header>
+      <Header />
 
       <div className="post__navigation">
         <div className="post__navigation--active">전체 글</div>
@@ -57,11 +47,7 @@ const Home = () => {
         ))}
       </div>
 
-      <footer>
-        <Link to="/posts/new">글쓰기</Link>
-        <Link to="/posts">피드</Link>
-        <Link to="/profile">프로필</Link>
-      </footer>
+      <Footer />
     </div>
   );
 };

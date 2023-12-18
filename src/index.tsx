@@ -5,7 +5,7 @@ import "./index.css";
 
 import Home from "./pages/home";
 import PostList from "./pages/posts";
-import PostDetail from "./pages/posts/detail";
+import PostPage from "./components/PostPage";
 import PostNew from "./pages/posts/new";
 import PostEdit from "./pages/posts/edit";
 import Profile from "./pages/profile";
@@ -29,7 +29,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/posts/:id",
-    element: <PostDetail />,
+    element: <PostPage />,
   },
   {
     path: "/posts/new",
