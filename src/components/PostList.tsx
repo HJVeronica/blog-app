@@ -12,8 +12,8 @@ interface PostListProps {
 
 type TabType = "all" | "my";
 
-interface PostProps {
-  id: string;
+export interface PostProps {
+  id?: string;
   title: string;
   content: string;
   createdAt: string;
@@ -71,7 +71,7 @@ const PostList = ({ hasNavigation = true }: PostListProps) => {
                   </div>
                 </div>
                 <div className="post__title">{post?.title}</div>
-                <div className="post__text">{post?.content}</div>
+                <div className="post__text">{post?.summary}</div>
               </Link>
 
               {post?.email === user?.email && (
