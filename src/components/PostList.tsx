@@ -2,7 +2,9 @@ import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import { db } from "firebaseApp";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+
+import { toast } from "react-toastify";
 
 import AuthContext from "context/AuthContext";
 
@@ -30,11 +32,25 @@ const PostList = ({ hasNavigation = true }: PostListProps) => {
 
   const getPosts = async () => {
     const data = await getDocs(collection(db, "posts"));
+
+    setPosts([]);
+
     data?.forEach((doc) => {
       const dataObj = { ...doc.data(), id: doc.id };
       setPosts((prev) => [...prev, dataObj as PostProps]);
     });
   };
+
+  const handleDelete = async (id: string) => {
+    const confirm = window.confirm("정말로 삭제하시겠습니까?");
+    if (confirm && id) {
+      await deleteDoc(doc(db, "posts", id));
+
+      toast.success("게시글 삭제 완료!");
+      getPosts(); // 삭제 후 포스트 다시 불러오기
+    }
+  };
+
   useEffect(() => {
     getPosts();
   }, []);
@@ -78,7 +94,13 @@ const PostList = ({ hasNavigation = true }: PostListProps) => {
 
               {post?.email === user?.email && (
                 <div className="post__utils-box">
-                  <div className="post__delete">삭제</div>
+                  <div
+                    className="post__delete"
+                    role="presentation"
+                    onClick={() => handleDelete(post.id as string)}
+                  >
+                    삭제
+                  </div>
                   <Link to={`/posts/edit/${post?.id}`} className="post__edit">
                     수정
                   </Link>

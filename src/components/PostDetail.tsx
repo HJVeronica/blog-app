@@ -1,9 +1,11 @@
 import { useState, useContext, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 import AuthContext from "context/AuthContext";
 import { db } from "firebaseApp";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, deleteDoc } from "firebase/firestore";
+
+import { toast } from "react-toastify";
 
 import Loader from "./Loader";
 
@@ -14,6 +16,8 @@ const PostDetail = () => {
   const params = useParams<{ id: string }>();
   const { user } = useContext(AuthContext);
 
+  const navigate = useNavigate();
+
   const getPost = async (id: string) => {
     if (id) {
       const docRef = doc(db, "posts", id);
@@ -23,8 +27,13 @@ const PostDetail = () => {
     }
   };
 
-  const handleDelete = () => {
-    console.log("delete");
+  const handleDelete = async () => {
+    const confirm = window.confirm("정말로 삭제하시겠습니까?");
+    if (confirm && post && post.id) {
+      await deleteDoc(doc(db, "posts", post.id));
+      toast.success("게시글 삭제 완료!");
+      navigate("/");
+    }
   };
 
   useEffect(() => {
