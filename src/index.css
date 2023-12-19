@@ -479,6 +479,10 @@ ul.carousel__slides input {
   color: var(--text-basic-color);
 }
 
+.form__error {
+  color: red;
+}
+
 /* login */
 .form-lg {
   min-height: 70vh;
