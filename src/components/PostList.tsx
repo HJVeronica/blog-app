@@ -18,10 +18,8 @@ import AuthContext from "context/AuthContext";
 
 interface PostListProps {
   hasNavigation?: boolean;
-  defaultTab?: TabType;
+  defaultTab?: TabType | CategoryType;
 }
-
-type TabType = "all" | "my";
 
 export interface PostProps {
   id?: string;
@@ -35,6 +33,7 @@ export interface PostProps {
   category: CategoryType;
 }
 
+type TabType = "all" | "my" | "no-category";
 export type CategoryType =
   | "없음"
   | "frontend"
@@ -52,7 +51,9 @@ const PostList = ({
   hasNavigation = true,
   defaultTab = "all",
 }: PostListProps) => {
-  const [activeTab, setActiveTab] = useState<TabType>(defaultTab);
+  const [activeTab, setActiveTab] = useState<TabType | CategoryType>(
+    defaultTab
+  );
   const [posts, setPosts] = useState<PostProps[]>([]);
   const { user } = useContext(AuthContext);
 
@@ -68,8 +69,21 @@ const PostList = ({
         where("uid", "==", user.uid),
         orderBy("createdAt", "desc")
       );
-    } else {
+    } else if (activeTab === "all") {
       postsQuery = query(postsRef, orderBy("createdAt", "desc"));
+    } else if (activeTab === "no-category") {
+      postsQuery = query(
+        postsRef,
+        where("category", "==", "없음"),
+        orderBy("createdAt", "desc")
+      );
+    } else {
+      // 카테고리 필터
+      postsQuery = query(
+        postsRef,
+        where("category", "==", activeTab),
+        orderBy("createdAt", "desc")
+      );
     }
 
     const data = await getDocs(postsQuery);
@@ -112,6 +126,26 @@ const PostList = ({
           >
             나의 글
           </div>
+          <div
+            role="presentation"
+            onClick={() => setActiveTab("no-category")}
+            className={
+              activeTab === "no-category" ? "post__navigation--active" : ""
+            }
+          >
+            분류없음
+          </div>
+          {CATEGORIES.map((category) => (
+            <div
+              role="presentation"
+              onClick={() => setActiveTab(category)}
+              className={
+                activeTab === category ? "post__navigation--active" : ""
+              }
+            >
+              {category}
+            </div>
+          ))}
         </div>
       )}
 
