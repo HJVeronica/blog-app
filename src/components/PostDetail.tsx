@@ -59,16 +59,21 @@ const PostDetail = () => {
 
             {post?.email === user?.email && (
               <div className="post__utils-box">
-                <div
-                  className="post__delete"
-                  role="presentation"
-                  onClick={handleDelete}
-                >
-                  삭제
+                <div>
+                  <div
+                    className="post__delete"
+                    role="presentation"
+                    onClick={handleDelete}
+                  >
+                    삭제
+                  </div>
+                  <Link to={`/posts/edit/${post?.id}`} className="post__edit">
+                    수정
+                  </Link>
                 </div>
-                <Link to={`/posts/edit/${post?.id}`} className="post__edit">
-                  수정
-                </Link>
+                {post?.category !== "없음" ? (
+                  <div className="post__category">{post?.category}</div>
+                ) : null}
               </div>
             )}
 

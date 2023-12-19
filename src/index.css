@@ -194,11 +194,19 @@ footer a:focus {
   display: flex;
   gap: 8px;
   flex-direction: row-reverse;
+  justify-content: space-between;
 
   font-size: 14px;
   color: gray;
 
   margin-top: 10px;
+}
+
+.post__utils-box > div {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 8px;
 }
 
 .post__utils-box a {
@@ -208,6 +216,14 @@ footer a:focus {
 
 .post__utils-box div {
   cursor: pointer;
+}
+
+.post__category {
+  border: 1px solid lightgray;
+  background: var(--light-gray);
+  padding: 0 8px;
+  border-radius: 10px;
+  font-size: 12px;
 }
 
 .post__delete:hover,
@@ -225,7 +241,7 @@ footer a:focus {
 }
 
 .post__detail .post__utils-box {
-  padding: 10px 20px;
+  padding: 10px 20px 10px 10px;
   border-top: 1px solid var(--light-gray);
   border-bottom: 1px solid var(--light-gray);
 }
@@ -455,6 +471,14 @@ ul.carousel__slides input {
   border: 1px solid gray;
   width: 96%;
   max-width: 680px;
+}
+
+.form select {
+  border: 1px solid gray;
+  max-width: 680px;
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 0.3rem;
 }
 
 .form .form__block {

@@ -6,12 +6,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import AuthContext from "context/AuthContext";
-import { PostProps } from "./PostList";
+import { CATEGORIES, CategoryType, PostProps } from "./PostList";
 
 const PostForm = () => {
   const [title, setTitle] = useState<string>("");
   const [summary, setSummary] = useState<string>("");
   const [content, setContent] = useState<string>("");
+  const [category, setCategory] = useState<CategoryType | string>("없음");
   const [post, setPost] = useState<PostProps | null>(null);
 
   const { user } = useContext(AuthContext);
@@ -20,7 +21,9 @@ const PostForm = () => {
   const navigate = useNavigate();
 
   const onChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     const {
       target: { name, value },
@@ -32,6 +35,8 @@ const PostForm = () => {
       setSummary(value);
     } else if (name === "content") {
       setContent(value);
+    } else if (name === "category") {
+      setCategory(value as CategoryType);
     }
   };
 
@@ -51,6 +56,7 @@ const PostForm = () => {
             minute: "2-digit",
             second: "2-digit",
           }),
+          category: category,
         });
 
         toast?.success("게시글 수정 완료!");
@@ -68,6 +74,7 @@ const PostForm = () => {
           summary: summary,
           content: content,
           uid: user?.uid,
+          category: category,
         });
 
         toast?.success("게시글 작성 완료!");
@@ -100,6 +107,7 @@ const PostForm = () => {
       setTitle(post?.title);
       setSummary(post?.summary);
       setContent(post?.content);
+      setCategory(post?.category);
     }
   }, [post]);
 
@@ -115,6 +123,23 @@ const PostForm = () => {
           onChange={onChange}
           value={title}
         />
+      </div>
+
+      <div className="form__block">
+        <label htmlFor="category">카테고리</label>
+        <select
+          name="category"
+          id="category"
+          onChange={onChange}
+          defaultValue={category}
+        >
+          <option value="없음">카테고리를 선택해주세요.</option>
+          {CATEGORIES.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className="form__block">

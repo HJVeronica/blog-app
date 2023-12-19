@@ -32,7 +32,21 @@ export interface PostProps {
   summary: string;
   updatedAt: string;
   uid: string;
+  category: CategoryType;
 }
+
+export type CategoryType =
+  | "없음"
+  | "frontend"
+  | "backend"
+  | "devops"
+  | "design";
+export const CATEGORIES: CategoryType[] = [
+  "frontend",
+  "backend",
+  "devops",
+  "design",
+];
 
 const PostList = ({
   hasNavigation = true,
