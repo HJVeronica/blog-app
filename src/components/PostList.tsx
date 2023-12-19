@@ -1,5 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+
+import { db } from "firebaseApp";
+import { collection, getDocs } from "firebase/firestore";
+
+import AuthContext from "context/AuthContext";
 
 interface PostListProps {
   hasNavigation?: boolean;
@@ -7,8 +12,30 @@ interface PostListProps {
 
 type TabType = "all" | "my";
 
+interface PostProps {
+  id: string;
+  title: string;
+  content: string;
+  createdAt: string;
+  email: string;
+  summary: string;
+}
+
 const PostList = ({ hasNavigation = true }: PostListProps) => {
   const [activeTab, setActiveTab] = useState<TabType>("all");
+  const [posts, setPosts] = useState<PostProps[]>([]);
+  const { user } = useContext(AuthContext);
+
+  const getPosts = async () => {
+    const data = await getDocs(collection(db, "posts"));
+    data?.forEach((doc) => {
+      const dataObj = { ...doc.data(), id: doc.id };
+      setPosts((prev) => [...prev, dataObj as PostProps]);
+    });
+  };
+  useEffect(() => {
+    getPosts();
+  }, []);
 
   return (
     <>
@@ -32,39 +59,32 @@ const PostList = ({ hasNavigation = true }: PostListProps) => {
       )}
 
       <div className="post__list">
-        {[...Array(10)].map((e, idx) => (
-          <div key={idx} className="post__box">
-            <Link to={`/posts/${idx + 1}`}>
-              <div className="post__profile-box">
-                <div className="post__profile"></div>
-                <div className="post__info-box">
-                  <div className="post__author-name">글쓴이</div>
-                  <div className="post__created-at">2023.12.18</div>
-                </div>
+        {posts?.length > 0
+          ? posts.map((post, idx) => (
+              <div key={post?.id} className="post__box">
+                <Link to={`/posts/${post?.id}`}>
+                  <div className="post__profile-box">
+                    <div className="post__profile"></div>
+                    <div className="post__info-box">
+                      <div className="post__author-name">{post?.email}</div>
+                      <div className="post__created-at">{post?.createdAt}</div>
+                    </div>
+                  </div>
+                  <div className="post__title">{post?.title}</div>
+                  <div className="post__text">{post?.content}</div>
+                </Link>
+
+                {post?.email === user?.email && (
+                  <div className="post__utils-box">
+                    <div className="post__delete">삭제</div>
+                    <Link to={`/posts/edit/${post?.id}`} className="post__edit">
+                      수정
+                    </Link>
+                  </div>
+                )}
               </div>
-              <div className="post__title">게시글 {idx + 1}</div>
-              <div className="post__text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-                nec porttitor nunc, at eleifend risus. Integer nec mattis
-                turpis, eget posuere nunc. Suspendisse feugiat turpis tempor,
-                aliquet erat ut, scelerisque felis. Donec sapien urna, vulputate
-                ut nibh feugiat, tempor tincidunt metus. Sed vel ex ultrices
-                libero cursus consectetur. Proin facilisis malesuada mauris sit
-                amet scelerisque. Morbi ac diam tortor. Nunc cursus arcu ligula,
-                et laoreet risus mollis nec. Duis sit amet urna augue. Nullam
-                iaculis congue ultricies. Pellentesque tincidunt mauris et lorem
-                iaculis, et rhoncus risus lacinia. Maecenas bibendum eleifend
-                nulla sed blandit.
-              </div>
-              <div className="post__utils-box">
-                <div className="post__delete">삭제</div>
-                <div className="post__edit">
-                  <Link to={`/posts/edit/1`}>수정</Link>
-                </div>
-              </div>
-            </Link>
-          </div>
-        ))}
+            ))
+          : "게시글이 없습니다."}
       </div>
     </>
   );
