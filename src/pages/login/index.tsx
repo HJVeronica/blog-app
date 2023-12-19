@@ -1,7 +1,13 @@
-import React from "react";
+import Header from "components/Header";
+import LoginForm from "components/LoginForm";
 
 const LogIn = () => {
-  return <div>LogIn</div>;
+  return (
+    <>
+      <Header />
+      <LoginForm />
+    </>
+  );
 };
 
 export default LogIn;
