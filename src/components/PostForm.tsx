@@ -46,7 +46,11 @@ const PostForm = () => {
           title: title,
           summary: summary,
           content: content,
-          updatedAt: new Date().toLocaleDateString(),
+          updatedAt: new Date().toLocaleDateString("ko", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          }),
         });
 
         toast?.success("게시글 수정 완료!");
@@ -54,7 +58,11 @@ const PostForm = () => {
       } else {
         // firestore 데이터 추가
         await addDoc(collection(db, "posts"), {
-          createdAt: new Date().toLocaleDateString(),
+          createdAt: new Date().toLocaleDateString("ko", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          }),
           email: user?.email,
           title: title,
           summary: summary,
