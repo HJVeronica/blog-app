@@ -225,11 +225,9 @@ footer a:focus {
 }
 
 .post__detail .post__utils-box {
-  padding: 10px 0;
+  padding: 10px 20px;
   border-top: 1px solid var(--light-gray);
   border-bottom: 1px solid var(--light-gray);
-
-  flex-direction: row;
 }
 
 .post__detail .post__profile-box {
@@ -242,6 +240,10 @@ footer a:focus {
 
 .post__detail .post__box {
   border: none;
+}
+
+.post__content--pre-wrap {
+  white-space: pre-wrap;
 }
 
 /* profile */
