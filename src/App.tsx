@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Router from "Router";
+import Loader from "components/Loader";
 
 const App = () => {
   const auth = getAuth(app);
@@ -29,7 +30,7 @@ const App = () => {
   return (
     <>
       <ToastContainer />
-      {init ? <Router isAuthenticated={isAuthenticated} /> : "Loading..."}
+      {init ? <Router isAuthenticated={isAuthenticated} /> : <Loader />}
     </>
   );
 };

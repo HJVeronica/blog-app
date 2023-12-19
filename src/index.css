@@ -504,3 +504,22 @@ ul.carousel__slides input {
 .form__link:focus {
   color: var(--text-basic-color);
 }
+
+/* loader */
+.loader {
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+
+  border: 5px solid rgba(33, 37, 41, 0.3);
+  border-top-color: var(--btn-bg);
+  border-radius: 50%;
+  z-index: 9999;
+
+  animation: rotation 1s linear infinite;
+}
