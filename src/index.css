@@ -110,13 +110,16 @@ footer a:focus {
 /* post navigation */
 .post__navigation {
   display: flex;
-  gap: 12px;
+  gap: 32px;
 
   font-size: 16px;
   color: gray;
 
-  cursor: pointer;
   padding: 48px 200px 0 200px;
+}
+
+.post__navigation > div {
+  cursor: pointer;
 }
 
 .post__navigation--active {
@@ -199,7 +202,7 @@ footer a:focus {
   font-size: 14px;
   color: gray;
 
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .post__utils-box > div {
