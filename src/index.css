@@ -110,13 +110,16 @@ footer a:focus {
 /* post navigation */
 .post__navigation {
   display: flex;
-  gap: 12px;
+  gap: 32px;
 
   font-size: 16px;
   color: gray;
 
-  cursor: pointer;
   padding: 48px 200px 0 200px;
+}
+
+.post__navigation > div {
+  cursor: pointer;
 }
 
 .post__navigation--active {
@@ -138,6 +141,15 @@ footer a:focus {
 
 .post__list a {
   text-decoration: none;
+}
+
+.post__no-post {
+  padding: 24px;
+  text-align: center;
+  font-size: 20px;
+  color: var(--text-basic-color);
+  border: 1px solid lightgray;
+  border-radius: 20px;
 }
 
 /* post box */
@@ -185,11 +197,19 @@ footer a:focus {
   display: flex;
   gap: 8px;
   flex-direction: row-reverse;
+  justify-content: space-between;
 
   font-size: 14px;
   color: gray;
 
-  margin-top: 10px;
+  margin-top: 20px;
+}
+
+.post__utils-box > div {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 8px;
 }
 
 .post__utils-box a {
@@ -199,6 +219,14 @@ footer a:focus {
 
 .post__utils-box div {
   cursor: pointer;
+}
+
+.post__category {
+  border: 1px solid lightgray;
+  background: var(--light-gray);
+  padding: 0 8px;
+  border-radius: 10px;
+  font-size: 12px;
 }
 
 .post__delete:hover,
@@ -216,11 +244,9 @@ footer a:focus {
 }
 
 .post__detail .post__utils-box {
-  padding: 10px 0;
+  padding: 10px 20px 10px 10px;
   border-top: 1px solid var(--light-gray);
   border-bottom: 1px solid var(--light-gray);
-
-  flex-direction: row;
 }
 
 .post__detail .post__profile-box {
@@ -233,6 +259,10 @@ footer a:focus {
 
 .post__detail .post__box {
   border: none;
+}
+
+.post__content--pre-wrap {
+  white-space: pre-wrap;
 }
 
 /* profile */
@@ -444,6 +474,14 @@ ul.carousel__slides input {
   border: 1px solid gray;
   width: 96%;
   max-width: 680px;
+}
+
+.form select {
+  border: 1px solid gray;
+  max-width: 680px;
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 0.3rem;
 }
 
 .form .form__block {

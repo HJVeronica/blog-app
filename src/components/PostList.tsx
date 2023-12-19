@@ -1,14 +1,112 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+
+import { db } from "firebaseApp";
+import {
+  collection,
+  getDocs,
+  deleteDoc,
+  doc,
+  query,
+  where,
+  orderBy,
+} from "firebase/firestore";
+
+import { toast } from "react-toastify";
+
+import AuthContext from "context/AuthContext";
 
 interface PostListProps {
   hasNavigation?: boolean;
+  defaultTab?: TabType | CategoryType;
 }
 
-type TabType = "all" | "my";
+export interface PostProps {
+  id?: string;
+  title: string;
+  content: string;
+  createdAt: string;
+  email: string;
+  summary: string;
+  updatedAt: string;
+  uid: string;
+  category: CategoryType;
+}
 
-const PostList = ({ hasNavigation = true }: PostListProps) => {
-  const [activeTab, setActiveTab] = useState<TabType>("all");
+type TabType = "all" | "my" | "no-category";
+export type CategoryType =
+  | "없음"
+  | "frontend"
+  | "backend"
+  | "devops"
+  | "design";
+export const CATEGORIES: CategoryType[] = [
+  "frontend",
+  "backend",
+  "devops",
+  "design",
+];
+
+const PostList = ({
+  hasNavigation = true,
+  defaultTab = "all",
+}: PostListProps) => {
+  const [activeTab, setActiveTab] = useState<TabType | CategoryType>(
+    defaultTab
+  );
+  const [posts, setPosts] = useState<PostProps[]>([]);
+  const { user } = useContext(AuthContext);
+
+  const getPosts = async () => {
+    setPosts([]);
+
+    let postsRef = collection(db, "posts");
+    let postsQuery;
+
+    if (activeTab === "my" && user) {
+      postsQuery = query(
+        postsRef,
+        where("uid", "==", user.uid),
+        orderBy("createdAt", "desc")
+      );
+    } else if (activeTab === "all") {
+      postsQuery = query(postsRef, orderBy("createdAt", "desc"));
+    } else if (activeTab === "no-category") {
+      postsQuery = query(
+        postsRef,
+        where("category", "==", "없음"),
+        orderBy("createdAt", "desc")
+      );
+    } else {
+      // 카테고리 필터
+      postsQuery = query(
+        postsRef,
+        where("category", "==", activeTab),
+        orderBy("createdAt", "desc")
+      );
+    }
+
+    const data = await getDocs(postsQuery);
+
+    data?.forEach((doc) => {
+      const dataObj = { ...doc.data(), id: doc.id };
+      setPosts((prev) => [...prev, dataObj as PostProps]);
+    });
+  };
+
+  const handleDelete = async (id: string) => {
+    const confirm = window.confirm("정말로 삭제하시겠습니까?");
+    if (confirm && id) {
+      await deleteDoc(doc(db, "posts", id));
+
+      toast.success("게시글 삭제 완료!");
+      getPosts(); // 삭제 후 포스트 다시 불러오기
+    }
+  };
+
+  useEffect(() => {
+    getPosts();
+  }, [activeTab]); // activeTab이 바뀔 때마다 useEffect 실행
 
   return (
     <>
@@ -28,43 +126,69 @@ const PostList = ({ hasNavigation = true }: PostListProps) => {
           >
             나의 글
           </div>
+          <div
+            role="presentation"
+            onClick={() => setActiveTab("no-category")}
+            className={
+              activeTab === "no-category" ? "post__navigation--active" : ""
+            }
+          >
+            분류없음
+          </div>
+          {CATEGORIES.map((category) => (
+            <div
+              role="presentation"
+              onClick={() => setActiveTab(category)}
+              className={
+                activeTab === category ? "post__navigation--active" : ""
+              }
+            >
+              {category}
+            </div>
+          ))}
         </div>
       )}
 
       <div className="post__list">
-        {[...Array(10)].map((e, idx) => (
-          <div key={idx} className="post__box">
-            <Link to={`/posts/${idx + 1}`}>
-              <div className="post__profile-box">
-                <div className="post__profile"></div>
-                <div className="post__info-box">
-                  <div className="post__author-name">글쓴이</div>
-                  <div className="post__created-at">2023.12.18</div>
+        {posts?.length > 0 ? (
+          posts.map((post, idx) => (
+            <div key={post?.id} className="post__box">
+              <Link to={`/posts/${post?.id}`}>
+                <div className="post__profile-box">
+                  <div className="post__profile"></div>
+                  <div className="post__info-box">
+                    <div className="post__author-name">{post?.email}</div>
+                    <div className="post__created-at">{post?.createdAt}</div>
+                  </div>
                 </div>
-              </div>
-              <div className="post__title">게시글 {idx + 1}</div>
-              <div className="post__text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-                nec porttitor nunc, at eleifend risus. Integer nec mattis
-                turpis, eget posuere nunc. Suspendisse feugiat turpis tempor,
-                aliquet erat ut, scelerisque felis. Donec sapien urna, vulputate
-                ut nibh feugiat, tempor tincidunt metus. Sed vel ex ultrices
-                libero cursus consectetur. Proin facilisis malesuada mauris sit
-                amet scelerisque. Morbi ac diam tortor. Nunc cursus arcu ligula,
-                et laoreet risus mollis nec. Duis sit amet urna augue. Nullam
-                iaculis congue ultricies. Pellentesque tincidunt mauris et lorem
-                iaculis, et rhoncus risus lacinia. Maecenas bibendum eleifend
-                nulla sed blandit.
-              </div>
-              <div className="post__utils-box">
-                <div className="post__delete">삭제</div>
-                <div className="post__edit">
-                  <Link to={`/posts/edit/1`}>수정</Link>
+                <div className="post__title">{post?.title}</div>
+                <div className="post__text">{post?.summary}</div>
+              </Link>
+
+              {post?.email === user?.email && (
+                <div className="post__utils-box">
+                  <div>
+                    <div
+                      className="post__delete"
+                      role="presentation"
+                      onClick={() => handleDelete(post.id as string)}
+                    >
+                      삭제
+                    </div>
+                    <Link to={`/posts/edit/${post?.id}`} className="post__edit">
+                      수정
+                    </Link>
+                  </div>
+                  {post?.category !== "없음" ? (
+                    <div className="post__category">{post?.category}</div>
+                  ) : null}
                 </div>
-              </div>
-            </Link>
-          </div>
-        ))}
+              )}
+            </div>
+          ))
+        ) : (
+          <div className="post__no-post">포스트가 없습니다.</div>
+        )}
       </div>
     </>
   );
