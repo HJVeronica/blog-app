@@ -48,14 +48,6 @@ const Router = ({ isAuthenticated }: RouterProps) => {
         element: <ProfilePage />,
       },
       {
-        path: "/login",
-        element: <LogIn />,
-      },
-      {
-        path: "/signup",
-        element: <SignUp />,
-      },
-      {
         path: "*",
         element: <Navigate to="/" />,
       },
