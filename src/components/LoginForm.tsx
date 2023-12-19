@@ -53,6 +53,7 @@ const LoginForm = () => {
 
       toast.success("로그인 성공!");
       form.current?.reset();
+      navigate("/");
     } catch (error: any) {
       setError(error?.message);
       toast.error(error?.code);
