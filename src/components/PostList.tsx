@@ -59,32 +59,34 @@ const PostList = ({ hasNavigation = true }: PostListProps) => {
       )}
 
       <div className="post__list">
-        {posts?.length > 0
-          ? posts.map((post, idx) => (
-              <div key={post?.id} className="post__box">
-                <Link to={`/posts/${post?.id}`}>
-                  <div className="post__profile-box">
-                    <div className="post__profile"></div>
-                    <div className="post__info-box">
-                      <div className="post__author-name">{post?.email}</div>
-                      <div className="post__created-at">{post?.createdAt}</div>
-                    </div>
+        {posts?.length > 0 ? (
+          posts.map((post, idx) => (
+            <div key={post?.id} className="post__box">
+              <Link to={`/posts/${post?.id}`}>
+                <div className="post__profile-box">
+                  <div className="post__profile"></div>
+                  <div className="post__info-box">
+                    <div className="post__author-name">{post?.email}</div>
+                    <div className="post__created-at">{post?.createdAt}</div>
                   </div>
-                  <div className="post__title">{post?.title}</div>
-                  <div className="post__text">{post?.content}</div>
-                </Link>
+                </div>
+                <div className="post__title">{post?.title}</div>
+                <div className="post__text">{post?.content}</div>
+              </Link>
 
-                {post?.email === user?.email && (
-                  <div className="post__utils-box">
-                    <div className="post__delete">삭제</div>
-                    <Link to={`/posts/edit/${post?.id}`} className="post__edit">
-                      수정
-                    </Link>
-                  </div>
-                )}
-              </div>
-            ))
-          : "게시글이 없습니다."}
+              {post?.email === user?.email && (
+                <div className="post__utils-box">
+                  <div className="post__delete">삭제</div>
+                  <Link to={`/posts/edit/${post?.id}`} className="post__edit">
+                    수정
+                  </Link>
+                </div>
+              )}
+            </div>
+          ))
+        ) : (
+          <div className="post__no-post">포스트가 없습니다.</div>
+        )}
       </div>
     </>
   );

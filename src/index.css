@@ -140,6 +140,15 @@ footer a:focus {
   text-decoration: none;
 }
 
+.post__no-post {
+  padding: 24px;
+  text-align: center;
+  font-size: 20px;
+  color: var(--text-basic-color);
+  border: 1px solid lightgray;
+  border-radius: 20px;
+}
+
 /* post box */
 .post__box {
   padding-top: 24px;
