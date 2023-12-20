@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { CommentsInterface, PostProps } from "./PostList";
 import AuthContext from "context/AuthContext";
 
@@ -6,34 +6,6 @@ import { db } from "firebaseApp";
 import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 
 import { toast } from "react-toastify";
-
-// dummy data
-const COMMENTS = [
-  {
-    id: 1,
-    content: "댓글 1",
-    email: "test@gmail.com",
-    createdAt: "2021-09-01",
-  },
-  {
-    id: 2,
-    content: "댓글 2",
-    email: "test2@gmail.com",
-    createdAt: "2021-09-02",
-  },
-  {
-    id: 3,
-    content: "댓글 3",
-    email: "test3@gmail.com",
-    createdAt: "2021-09-03",
-  },
-  {
-    id: 4,
-    content: "댓글 4",
-    email: "test4@gmail.com",
-    createdAt: "2021-09-04",
-  },
-];
 
 interface CommentsProps {
   post: PostProps;
