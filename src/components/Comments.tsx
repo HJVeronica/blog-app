@@ -1,4 +1,11 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
+import { PostProps } from "./PostList";
+import AuthContext from "context/AuthContext";
+
+import { db } from "firebaseApp";
+import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+
+import { toast } from "react-toastify";
 
 // dummy data
 const COMMENTS = [
@@ -28,8 +35,14 @@ const COMMENTS = [
   },
 ];
 
-const Comments = () => {
+interface CommentsProps {
+  post: PostProps;
+  getPost: (id: string) => Promise<void>;
+}
+
+const Comments = ({ post, getPost }: CommentsProps) => {
   const [comment, setComment] = useState("");
+  const { user } = useContext(AuthContext);
 
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const {
@@ -41,23 +54,65 @@ const Comments = () => {
     }
   };
 
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      if (post && post?.id) {
+        const postRef = doc(db, "posts", post.id);
+
+        if (user?.uid) {
+          const commentObj = {
+            content: comment,
+            uid: user.uid,
+            email: user.email,
+            createdAt: new Date()?.toLocaleDateString("ko", {
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit",
+            }),
+          };
+
+          await updateDoc(postRef, {
+            comments: arrayUnion(commentObj),
+            updatedAt: new Date()?.toLocaleDateString("ko", {
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit",
+            }),
+          });
+
+          await getPost(post.id);
+        }
+      }
+
+      toast.success("댓글 작성 완료!");
+      setComment("");
+    } catch (err: any) {
+      console.log(err?.code);
+    }
+  };
+
   return (
     <div className="comments">
       <div className="comments__list">
-        {COMMENTS.map((comment) => (
-          <div className="comment__box" key={comment.id}>
-            <div className="comment__profile-box">
-              <div className="comment__email">{comment?.email}</div>
-              <div className="comment__created-at">{comment?.createdAt}</div>
-              <div className="comment__delete">삭제</div>
-            </div>
+        {post?.comments
+          ?.slice(0)
+          ?.reverse()
+          .map((comment) => (
+            <div className="comment__box" key={comment.createdAt}>
+              <div className="comment__profile-box">
+                <div className="comment__email">{comment?.email}</div>
+                <div className="comment__created-at">{comment?.createdAt}</div>
+                <div className="comment__delete">삭제</div>
+              </div>
 
-            <div className="comment__content">{comment.content}</div>
-          </div>
-        ))}
+              <div className="comment__content">{comment.content}</div>
+            </div>
+          ))}
       </div>
 
-      <form className="comments__form">
+      <form onSubmit={onSubmit} className="comments__form">
         <div className="form__block">
           <label htmlFor="comment">댓글 입력</label>
           <textarea

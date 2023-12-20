@@ -84,7 +84,7 @@ const PostDetail = () => {
               </div>
             </div>
 
-            <Comments />
+            <Comments post={post} getPost={getPost} />
           </>
         ) : (
           <Loader />
