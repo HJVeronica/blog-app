@@ -21,7 +21,7 @@ interface PostListProps {
   defaultTab?: TabType | CategoryType;
 }
 
-interface CommentsInterface {
+export interface CommentsInterface {
   uid: string;
   content: string;
   createdAt: string;
