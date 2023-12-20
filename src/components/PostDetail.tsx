@@ -59,8 +59,8 @@ const PostDetail = () => {
                 </div>
               </div>
 
-              {post?.email === user?.email && (
-                <div className="post__utils-box">
+              <div className="post__utils-box">
+                {post?.email === user?.email ? (
                   <div>
                     <div
                       className="post__delete"
@@ -73,11 +73,13 @@ const PostDetail = () => {
                       수정
                     </Link>
                   </div>
-                  {post?.category !== "없음" ? (
-                    <div className="post__category">{post?.category}</div>
-                  ) : null}
-                </div>
-              )}
+                ) : (
+                  <div></div>
+                )}
+                {post?.category !== "없음" ? (
+                  <div className="post__category">{post?.category}</div>
+                ) : null}
+              </div>
 
               <div className="post__content post__content--pre-wrap">
                 {post?.content}

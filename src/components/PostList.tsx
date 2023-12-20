@@ -173,8 +173,8 @@ const PostList = ({
                 <div className="post__text">{post?.summary}</div>
               </Link>
 
-              {post?.email === user?.email && (
-                <div className="post__utils-box">
+              <div className="post__utils-box">
+                {post?.email === user?.email ? (
                   <div>
                     <div
                       className="post__delete"
@@ -187,11 +187,13 @@ const PostList = ({
                       수정
                     </Link>
                   </div>
-                  {post?.category !== "없음" ? (
-                    <div className="post__category">{post?.category}</div>
-                  ) : null}
-                </div>
-              )}
+                ) : (
+                  <div></div>
+                )}
+                {post?.category !== "없음" ? (
+                  <div className="post__category">{post?.category}</div>
+                ) : null}
+              </div>
             </div>
           ))
         ) : (
