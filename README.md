@@ -14,6 +14,10 @@
 - 로그인/회원가입 기능
   - `Firebase`를 활용한 인증 (Firebase Auth)
 
+###
+
+![React Blog GIF](<React Blog.gif>)
+
 ## 2️⃣ 이 프로젝트를 통해 공부한 내용
 
 - `Firebase`
