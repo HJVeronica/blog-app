@@ -1,5 +1,7 @@
 # React Blog
 
+<img src="https://img.shields.io/badge/license-MIT-1253E8?style=flat"> <img src="https://img.shields.io/badge/version-1.0.0-14FF1F?style=flat">
+
 ### 🌎 Demo 👉🏻 [https://study-blog-7eeb8.web.app/](https://study-blog-7eeb8.web.app/)
 
 ## 1️⃣ 프로젝트 소개
