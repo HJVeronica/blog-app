@@ -59,7 +59,7 @@ header {
   left: 0;
   right: 0;
   /* width: 100%; */
-  z-index: 999;
+  z-index: 1000;
 }
 
 footer {
@@ -183,6 +183,11 @@ footer a:focus {
 }
 
 /* post box */
+.post__box:first-child {
+  border-top: 1px solid gray;
+  padding-top: 60px;
+}
+
 .post__box {
   padding-top: 24px;
   padding-bottom: 24px;
@@ -422,7 +427,10 @@ footer a:focus {
   text-align: left;
   line-height: 1.6;
 
-  padding: 20px 200px;
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+
+  padding: 40px 30px 20px 30px;
 }
 
 .flex__box-lg {
