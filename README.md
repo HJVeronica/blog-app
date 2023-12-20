@@ -1,46 +1,86 @@
-# Getting Started with Create React App
+# React Blog
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 🌎 Demo 👉🏻 [https://study-blog-7eeb8.web.app/](https://study-blog-7eeb8.web.app/)
 
-## Available Scripts
+## 1️⃣ 프로젝트 소개
 
-In the project directory, you can run:
+로그인/회원가입 기능을 가진 간단한 블로그 입니다. 기능은 아래와 같습니다.
 
-### `yarn start`
+- 포스트 및 댓글 생성, 수정, 삭제
+  - `Firebase`를 활용한 CRUD (Firestore)
+- 다크/라이트 모드 전환
+- 로그인/회원가입 기능
+  - `Firebase`를 활용한 인증 (Firebase Auth)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 2️⃣ 이 프로젝트를 통해 공부한 내용
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- `Firebase`
+  - Auth, FireStore
+- FireStore을 통한 CRUD 구현
+- `ContextAPI`를 활용한 사용자 인증 정보 관리
+- `ContextAPI`를 활용한 테마 관리 (다크모드)
+- Carousel 자체 구현 (라이브러리 사용x)
 
-### `yarn test`
+## 3️⃣ 향후 추가하고자 하는 기능
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Carousel autoplay
+- 회원가입 시 작성 항목 추가
+  - 프로필 사진
+  - 닉네임
+- 사용자 간 팔로우
+- 피드 페이지에서 팔로우한 사용자의 포스트만 보이기
+- 포스트 검색 기능
 
-### `yarn build`
+## 4️⃣ 기술스택
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<img src="https://img.shields.io/badge/react-61DAFB?style=flat-square&logo=react&logoColor=white"/>
+<img src="https://img.shields.io/badge/typescript-3178C6?style=flat-square&logo=typescript&logoColor=white"/>
+<img src="https://img.shields.io/badge/firebase-FFCA28?style=flat-square&logo=firebase&logoColor=white"/>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 5️⃣ 프로젝트 트리
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+📦src
+ ┣ 📂components
+ ┃ ┣ 📜Carousel.tsx
+ ┃ ┣ 📜Comments.tsx
+ ┃ ┣ 📜Footer.tsx
+ ┃ ┣ 📜Header.tsx
+ ┃ ┣ 📜Loader.tsx
+ ┃ ┣ 📜LoginForm.tsx
+ ┃ ┣ 📜PostDetail.tsx
+ ┃ ┣ 📜PostForm.tsx
+ ┃ ┣ 📜PostList.tsx
+ ┃ ┣ 📜ProfilePage.tsx
+ ┃ ┗ 📜SignupForm.tsx
+ ┣ 📂context
+ ┃ ┣ 📜AuthContext.tsx
+ ┃ ┗ 📜ThemeContext.tsx
+ ┣ 📂pages
+ ┃ ┣ 📂home
+ ┃ ┃ ┗ 📜index.tsx
+ ┃ ┣ 📂login
+ ┃ ┃ ┗ 📜index.tsx
+ ┃ ┣ 📂posts
+ ┃ ┃ ┣ 📜detail.tsx
+ ┃ ┃ ┣ 📜edit.tsx
+ ┃ ┃ ┣ 📜index.tsx
+ ┃ ┃ ┗ 📜new.tsx
+ ┃ ┣ 📂profile
+ ┃ ┃ ┗ 📜index.tsx
+ ┃ ┗ 📂signup
+ ┃ ┃ ┗ 📜index.tsx
+ ┣ 📜App.tsx
+ ┣ 📜Router.tsx
+ ┣ 📜firebaseApp.ts
+ ┣ 📜index.css
+ ┣ 📜index.tsx
+ ┗ 📜react-app-env.d.ts
+```
 
-### `yarn eject`
+## 6️⃣ 프로젝트 설치 및 실행
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+yarn install
+yarn start
+```
